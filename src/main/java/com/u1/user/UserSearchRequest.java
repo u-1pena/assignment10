@@ -1,5 +1,7 @@
 package com.u1.user;
 
+import java.util.Objects;
+
 public class UserSearchRequest {
     private String startsWith;
     private String endsWith;
@@ -12,15 +14,16 @@ public class UserSearchRequest {
     }
 
     public String getStartsWith() {
-        return startsWith == null ? "" : startsWith;
+        return Objects.isNull(startsWith) ? "" : startsWith;
     }
 
+
     public String getEndsWith() {
-        return endsWith == null ? "" : endsWith;
+        return Objects.isNull(endsWith) ? "" : endsWith;
     }
 
     public String getContains() {
-        return contains == null ? "" : contains;
+        return Objects.isNull(contains) ? "" : contains;
     }
 
     public void setStartsWith(String startsWith) {
