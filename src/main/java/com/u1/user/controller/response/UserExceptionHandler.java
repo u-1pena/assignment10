@@ -1,4 +1,4 @@
-package com.u1.user;
+package com.u1.user.controller.response;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

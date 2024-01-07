@@ -1,5 +1,7 @@
-package com.u1.user;
+package com.u1.user.controller;
 
+import com.u1.user.entity.User;
+import com.u1.user.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +14,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/users/{id}")//ユーザー検索する処理
     public User getUser(@PathVariable("id") int id) {
         return userService.findUser(id);
     }
