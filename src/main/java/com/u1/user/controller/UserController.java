@@ -26,7 +26,7 @@ public class UserController {
     @PostMapping("/users")//ユーザー登録処理
     public ResponseEntity<UserCreateResponse> insert(@RequestBody UserRequest userRequest, UriComponentsBuilder uriBuilder) {
         User user = userService.insert(userRequest.getName(), userRequest.getBirthday());
-        URI location = uriBuilder.path("/Users/{id}").buildAndExpand(user.getId()).toUri();
+        URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         UserCreateResponse body = new UserCreateResponse("user created");
         return ResponseEntity.created(location).body(body);
     }
