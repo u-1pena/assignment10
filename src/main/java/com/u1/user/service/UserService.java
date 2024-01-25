@@ -5,7 +5,7 @@ import com.u1.user.entity.User;
 import com.u1.user.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Service
 public class UserService {
@@ -22,7 +22,7 @@ public class UserService {
     }
 
     /*ユーザーを登録する仕様*/
-    public User insert(String name, Date birthday) {//staticメソッドを利用
+    public User insert(String name, LocalDate birthday) {//staticメソッドを利用
         User newUser = User.createUser(name, birthday);
         userMapper.insert(newUser);
         return newUser;

@@ -1,12 +1,12 @@
 package com.u1.user.controller.request;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class UserRequest {
     private String name;
-    private Date birthday;
+    private LocalDate birthday;
 
-    public UserRequest(String name, Date birthday) {
+    public UserRequest(String name, LocalDate birthday) {
         this.name = name;
         this.birthday = birthday;
     }
@@ -15,7 +15,7 @@ public class UserRequest {
         return name;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 }
