@@ -1,10 +1,7 @@
 package com.u1.user.mapper;
 
 import com.u1.user.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +20,7 @@ public interface UserMapper {
     @Insert("INSERT INTO users (name, birthday) VALUES (#{name}, #{birthday})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(User user);
+
+    @Delete("DELETE FROM users WHERE id = #{id}")
+    void deleteUser(Integer id);
 }
