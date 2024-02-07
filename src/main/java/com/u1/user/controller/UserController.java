@@ -5,6 +5,7 @@ import com.u1.user.controller.response.UserCreateResponse;
 import com.u1.user.entity.User;
 import com.u1.user.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/users")//ユーザー登録処理
-    public ResponseEntity<UserCreateResponse> insert(@RequestBody UserRequest userRequest, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<UserCreateResponse> insert(@RequestBody @Validated UserRequest userRequest, UriComponentsBuilder uriBuilder) {
         User user = userService.insert(userRequest.getName(), userRequest.getBirthday());
         URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         UserCreateResponse body = new UserCreateResponse("user created");

@@ -1,12 +1,16 @@
 package com.u1.user.controller.request;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class UserRequest {
+    @NotBlank
     private String name;
-    private LocalDate birthday;
+    @Pattern(regexp = "^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])",
+            message = "YYYY/MM/ddで入力して下さい")
+    private String birthday;
 
-    public UserRequest(String name, LocalDate birthday) {
+    public UserRequest(String name, String birthday) {
         this.name = name;
         this.birthday = birthday;
     }
@@ -15,7 +19,7 @@ public class UserRequest {
         return name;
     }
 
-    public LocalDate getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 }
