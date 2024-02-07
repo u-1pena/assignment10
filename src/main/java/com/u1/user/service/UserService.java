@@ -25,12 +25,5 @@ public class UserService {
         userMapper.insert(newUser);
         return newUser;
     }
-
-    public User deleteuser(Integer id) {
-        User user = this.userMapper.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
-        userMapper.deleteUser(id);
-        return user;
-    }
 }
 
