@@ -33,9 +33,8 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<UserResponse> delete(@PathVariable("id") Integer id, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<UserResponse> delete(@PathVariable("id") Integer id) {
         User user = userService.delete(id);
-        URI Location = uriBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
         UserResponse body = new UserResponse("a deleted user!");
         return ResponseEntity.ok(body);
     }
