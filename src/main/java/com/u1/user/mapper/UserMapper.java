@@ -22,5 +22,5 @@ public interface UserMapper {
     void insert(User user);
 
     @Delete("DELETE FROM users WHERE id = #{id}")
-    void delete(Integer id);
+    void delete(int id);
 }

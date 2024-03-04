@@ -14,7 +14,7 @@ public class UserService {
     }
 
     //ユーザーを検索する仕様
-    public User findUser(Integer id) {
+    public User findUser(int id) {
         return this.userMapper.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found with id: " + id));
     }
@@ -26,7 +26,7 @@ public class UserService {
         return newUser;
     }
 
-    public User delete(Integer id) {
+    public User delete(int id) {
         User user = this.userMapper.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found with id: " + id));
         userMapper.delete(id);
