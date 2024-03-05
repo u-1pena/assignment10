@@ -1,7 +1,7 @@
 package com.u1.user.controller;
 
 import com.u1.user.controller.request.UserRequest;
-import com.u1.user.controller.response.UserCreateResponse;
+import com.u1.user.controller.response.UserResponse;
 import com.u1.user.entity.User;
 import com.u1.user.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +25,18 @@ public class UserController {
     }
 
     @PostMapping("/users")//ユーザー登録処理
-    public ResponseEntity<UserCreateResponse> insert(@RequestBody @Validated UserRequest userRequest, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<UserResponse> insert(@RequestBody @Validated UserRequest userRequest, UriComponentsBuilder uriBuilder) {
         User user = userService.insert(userRequest.getName(), userRequest.getBirthday());
         URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
-        UserCreateResponse body = new UserCreateResponse("user created");
+        UserResponse body = new UserResponse("user created");
         return ResponseEntity.created(location).body(body);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<UserResponse> delete(@PathVariable("id") int id) {
+        User user = userService.delete(id);
+        UserResponse body = new UserResponse("a deleted user!");
+        return ResponseEntity.ok(body);
     }
 
 
