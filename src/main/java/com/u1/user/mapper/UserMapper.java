@@ -21,6 +21,13 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(User user);
 
+    /*ユーザー削除する処理*/
     @Delete("DELETE FROM users WHERE id = #{id}")
     void delete(int id);
+
+    /*ユーザーを更新する処理*/
+    @Update("UPDATE users SET name = #{name}, birthday = #{birthday} WHERE id = #{id}")
+    void update(User user);
+
 }
+

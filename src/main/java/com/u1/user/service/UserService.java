@@ -26,10 +26,23 @@ public class UserService {
         return newUser;
     }
 
+    //    ユーザーを削除する仕様
     public User delete(int id) {
         User user = this.userMapper.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found with id: " + id));
         userMapper.delete(id);
+        return user;
+    }
+
+    //    ユーザーを更新する仕様
+    public User update(int id, String name, String birthday) {
+        User user = this.userMapper.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("user not found with id: " + id));
+
+        user.setName(name);
+        user.setBirthday(birthday);
+
+        userMapper.update(user);
         return user;
     }
 }
