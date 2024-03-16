@@ -30,7 +30,7 @@ public class UserExceptionHandler extends RuntimeException {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)//POST(登録時）のValidationを実装
+    @ExceptionHandler(MethodArgumentNotValidException.class)//POST,PATCH(登録、更新時）のValidationを実装
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<Map<String, String>> errors = new ArrayList<>();
         e.getBindingResult().getFieldErrors().forEach(fieldError -> {

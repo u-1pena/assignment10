@@ -1,6 +1,5 @@
 package com.u1.user.controller.response;
 
-/*UserControllerのPOST処理時"user created"を返すクラス*/
 public class UserResponse {
 
     private String message;
