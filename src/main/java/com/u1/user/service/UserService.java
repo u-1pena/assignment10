@@ -5,12 +5,19 @@ import com.u1.user.entity.User;
 import com.u1.user.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserMapper userMapper;
 
     public UserService(UserMapper userMapper) {
         this.userMapper = userMapper;
+    }
+
+    //ユーザーを全件取得する仕様
+    public List<User> findAll() {
+        return userMapper.findAll();
     }
 
     //ユーザーを検索する仕様

@@ -8,9 +8,16 @@ import java.util.Optional;
 
 @Mapper
 public interface UserMapper {
+
+    /*ユーザーを全件取得する処理*/
+    @Select("SELECT * FROM users")
+    List<User> findAll();
+
+
     /*ユーザーを文字検索する処理*/
     @Select("SELECT * FROM users WHERE name LIKE CONCAT(#{prefix}, '%') AND name LIKE CONCAT('%', #{suffix}) AND name LIKE CONCAT('%', #{contains}, '%')")
     List<User> findByUserStartingWith(String prefix, String suffix, String contains);
+
 
     /*ユーザーを{id}で検索する処理*/
     @Select("SELECT * FROM users WHERE id = #{id}")
