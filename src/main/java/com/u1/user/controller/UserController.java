@@ -26,6 +26,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/users/names")
+    public User findByName(@RequestParam String name) {
+        return userService.findByName(name);
+    }
+
     @GetMapping("/users/{id}")//ユーザー検索する処理
     public User getUser(@PathVariable("id") int id) {
         return userService.findUser(id);

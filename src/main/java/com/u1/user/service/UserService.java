@@ -20,13 +20,22 @@ public class UserService {
         return userMapper.findAll();
     }
 
-    //ユーザーを検索する仕様
+    /*-------------------ユーザーを検索する仕様--------------------------*/
+
+    //[id検索]
     public User findUser(int id) {
         return this.userMapper.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found with id: " + id));
     }
 
-    /*ユーザーを登録する仕様*/
+    //[名前検索]
+
+    public User findByName(String name) {
+        return this.userMapper.findByName(name)
+                .orElseThrow(() -> new UserNotFoundException("user not found containing name: " + name));
+    }
+
+    /*-------------------ユーザーを登録する仕様--------------------------*/
     public User insert(String name, String birthday) {//staticメソッドを利用
         User newUser = User.createUser(name, birthday);
         userMapper.insert(newUser);
