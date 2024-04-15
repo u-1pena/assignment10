@@ -13,11 +13,18 @@ public interface UserMapper {
     @Select("SELECT * FROM users")
     List<User> findAll();
 
+    /*ユーザーを名前で検索する機能*/
+    @Select("SELECT * FROM users WHERE name LIKE CONCAT('%', #{name}, '%')")
+    Optional<User> findByName(String name);
 
-    /*ユーザーを文字検索する処理*/
-    @Select("SELECT * FROM users WHERE name LIKE CONCAT(#{prefix}, '%') AND name LIKE CONCAT('%', #{suffix}) AND name LIKE CONCAT('%', #{contains}, '%')")
-    List<User> findByUserStartingWith(String prefix, String suffix, String contains);
 
+    /*****************************************************
+     使っていないので保留！あとで復習するように保存！
+
+     ユーザーを文字検索する処理@Select("SELECT * FROM users WHERE name LIKE CONCAT(#{prefix}, '%') AND name LIKE CONCAT('%', #{suffix}) AND name LIKE CONCAT('%', #{contains}, '%')")
+
+     List<User> findByName(String prefix, String suffix, String contains);
+     *****************************************************/
 
     /*ユーザーを{id}で検索する処理*/
     @Select("SELECT * FROM users WHERE id = #{id}")
