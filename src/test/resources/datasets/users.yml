@@ -1,0 +1,8 @@
+users:
+  - id: 1
+    name: "yuichi"
+    birthday: "1984-07-03"
+  - id: 2
+    name: "kana"
+    birthday: "1993-12-31"
+
