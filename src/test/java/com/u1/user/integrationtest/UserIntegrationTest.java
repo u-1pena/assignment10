@@ -1,18 +1,20 @@
 package com.u1.user.integrationtest;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest//結合テストがメインで使われる！単体だと非効率！！
+@SpringBootTest//結合テストがメインで使われる// ！単体だと非効率！！
 @AutoConfigureMockMvc
 @DBRider
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -113,4 +115,60 @@ public class UserIntegrationTest {
 
     }
 
+    /*-------------------------------登録処理-------------------------------------------------------------------------*/
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @ExpectedDataSet(value = "datasets/insertUsers.yml", ignoreCols = "id")
+    @Transactional
+    void 名前と生年月日を未使用のIDで紐づけし登録すること() throws Exception {
+        String requestBody = """
+                {
+                           "name": "Tom",
+                           "birthday": "1990/01/01"
+                }
+                """;
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "message": "user created"
+                        }
+                        """));
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 指定しないフォーマットで登録しようとしたとき例外処理を返すこと() throws Exception {
+        String exceptionRequestBody = """
+                {
+                           "name": "",
+                           "birthday": ""
+                }
+                """;
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(exceptionRequestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                                {
+                                    "status": "BAD_REQUEST",
+                                    "message": "validation error",
+                                    "errors": [
+                                        {
+                                            "field": "birthday",
+                                            "message": "YYYY/MM/ddで入力して下さい"
+                                        },
+                                        {
+                                            "field": "name",
+                                            "message": "must not be blank"
+                                        }
+                                    ]
+                                }
+                                            """));
+
+    }
 }
