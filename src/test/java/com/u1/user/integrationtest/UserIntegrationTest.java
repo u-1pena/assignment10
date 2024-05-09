@@ -92,7 +92,7 @@ public class UserIntegrationTest {
         @Test
         @DataSet(value = "datasets/users.yml")
         @Transactional
-        void 存在しない名前を指定したとき例外処理を返すこと() throws Exception {
+        void 存在しない名前を指定したとき404エラーを返すこと() throws Exception {
 
             mockMvc.perform(MockMvcRequestBuilders.get("/users/names?name=unknownUser"))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -107,7 +107,7 @@ public class UserIntegrationTest {
         @Test
         @DataSet(value = "datasets/users.yml")
         @Transactional
-        void 存在しないIDを指定したとき例外処理を返すこと() throws Exception {
+        void 存在しないIDを指定したとき404エラーを返すこと() throws Exception {
 
             mockMvc.perform(MockMvcRequestBuilders.get("/users/0"))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
