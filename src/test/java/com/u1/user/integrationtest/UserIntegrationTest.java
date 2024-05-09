@@ -180,4 +180,22 @@ public class UserIntegrationTest {
 
         }
     }
+
+    @Nested
+    class deleteClass {
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @ExpectedDataSet(value = "datasets/deleteusers.yml")
+        @Transactional
+        void 指定したIDと紐づいた存在するユーザーを削除すること() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/users/1"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "message": "a deleted user!"
+                            }
+                            """));
+        }
+    }
 }
