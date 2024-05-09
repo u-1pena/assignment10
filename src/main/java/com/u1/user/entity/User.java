@@ -13,6 +13,7 @@ public class User {
         this.birthday = birthday;
     }
 
+
     public static User createUser(String name, String birthday) {
         return new User(null, name, birthday);
     }
@@ -53,4 +54,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, name, birthday);
     }
+
+
 }

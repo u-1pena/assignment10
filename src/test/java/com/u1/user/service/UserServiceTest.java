@@ -14,8 +14,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -73,5 +72,14 @@ public class UserServiceTest {
         });
 
     }
+
+    @Test
+    void 名前と生年月日を紐づけて新規登録すること() {
+        User user = new User(null, "tom", "1990-01-01");
+        doNothing().when(userMapper).insert(user);
+        assertThat(userService.insert("tom", "1990-01-01")).isEqualTo(user);
+        verify(userMapper).insert(user);
+    }
+
 
 }
