@@ -5,6 +5,8 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest//結合テストがメインで使われる// ！単体だと非効率！！
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @DBRider
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -186,9 +189,10 @@ public class UserIntegrationTest {
 
         @Test
         @DataSet(value = "datasets/users.yml")
-        @ExpectedDataSet(value = "datasets/deleteusers.yml")
+        @ExpectedDataSet(value = "datasets/deleteUsers.yml")
         @Transactional
         void 指定したIDと紐づいた存在するユーザーを削除すること() throws Exception {
+
             mockMvc.perform(MockMvcRequestBuilders.delete("/users/1"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""
@@ -196,6 +200,8 @@ public class UserIntegrationTest {
                                 "message": "a deleted user!"
                             }
                             """));
+
+
         }
     }
 }
