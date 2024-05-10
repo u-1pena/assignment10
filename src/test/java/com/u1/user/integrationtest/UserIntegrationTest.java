@@ -207,7 +207,7 @@ public class UserIntegrationTest {
         @Test
         @DataSet(value = "datasets/users.yml")
         @Transactional
-        void 存在しないIDでユーザーを削除を行おうとしたとき404エラーを返すこと() throws Exception {
+        void 存在しないIDでユーザーの削除を行おうとしたとき404エラーを返すこと() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.delete("/users/0"))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
