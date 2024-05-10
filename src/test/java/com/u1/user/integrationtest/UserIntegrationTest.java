@@ -5,6 +5,8 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest//結合テストがメインで使われる// ！単体だと非効率！！
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @DBRider
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,7 +28,7 @@ public class UserIntegrationTest {
     MockMvc mockMvc;
 
     @Nested
-    class readClass {
+    class ReadClass {
 
         @Test
         @DataSet(value = "datasets/users.yml")
@@ -122,7 +125,7 @@ public class UserIntegrationTest {
 
 
     @Nested
-    class createClass {
+    class CreateClass {
 
         @Test
         @DataSet(value = "datasets/users.yml")
@@ -177,6 +180,41 @@ public class UserIntegrationTest {
                                         ]
                                     }
                                                 """));
+
+        }
+    }
+
+    @Nested
+    class DeleteClass {
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @ExpectedDataSet(value = "datasets/deleteUsers.yml")
+        @Transactional
+        void 指定したIDと紐づいた存在するユーザーを削除すること() throws Exception {
+
+            mockMvc.perform(MockMvcRequestBuilders.delete("/users/1"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "message": "a deleted user!"
+                            }
+                            """));
+
+
+        }
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @Transactional
+        void 存在しないIDでユーザーの削除を行おうとしたとき404エラーを返すこと() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/users/0"))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("404"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("user not found with id: " + 0))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/users/0"));
 
         }
     }

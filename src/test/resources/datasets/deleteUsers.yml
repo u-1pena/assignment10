@@ -1,0 +1,4 @@
+users:
+  - id: 2
+    name: "kana"
+    birthday: "1993-12-31"
