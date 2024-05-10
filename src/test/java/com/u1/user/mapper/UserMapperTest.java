@@ -32,7 +32,7 @@ class UserMapperTest {
     --------------------READ処理(GET)----------------------------------------------------------------*/
 
     @Nested
-    class readClass {
+    class ReadClass {
 
         @Test
         @DataSet(value = "datasets/users.yml")
@@ -67,7 +67,7 @@ class UserMapperTest {
 
 
     @Nested
-    class createClass {
+    class CreateClass {
         @Test
         @DataSet(value = "datasets/users.yml")
         @ExpectedDataSet(value = "datasets/insertUsers.yml", ignoreCols = "id")
@@ -79,7 +79,7 @@ class UserMapperTest {
     }
 
     @Nested
-    class deleteClas {
+    class DeleteClas {
 
         @Test
         @DataSet(value = "datasets/users.yml")

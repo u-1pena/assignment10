@@ -25,7 +25,7 @@ public class UserIntegrationTest {
     MockMvc mockMvc;
 
     @Nested
-    class readClass {
+    class ReadClass {
 
         @Test
         @DataSet(value = "datasets/users.yml")
@@ -122,7 +122,7 @@ public class UserIntegrationTest {
 
 
     @Nested
-    class createClass {
+    class CreateClass {
 
         @Test
         @DataSet(value = "datasets/users.yml")
@@ -182,7 +182,7 @@ public class UserIntegrationTest {
     }
 
     @Nested
-    class deleteClass {
+    class DeleteClass {
 
         @Test
         @DataSet(value = "datasets/users.yml")
@@ -196,6 +196,20 @@ public class UserIntegrationTest {
                                 "message": "a deleted user!"
                             }
                             """));
+        }
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @Transactional
+        void 存在しないIDでユーザーを削除を行おうとしたとき404エラーを返すこと() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/users/0"))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("404"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("user not found with id: " + 0))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/users/0"));
+
         }
     }
 }

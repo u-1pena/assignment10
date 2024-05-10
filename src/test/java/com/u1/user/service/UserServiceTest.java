@@ -26,7 +26,7 @@ public class UserServiceTest {
     UserMapper userMapper;
 
     @Nested
-    class readClass {
+    class ReadClass {
         @Test
         void 全てのユーザーが取得できること() {
             List<User> users = List.of(
@@ -79,7 +79,7 @@ public class UserServiceTest {
     }
 
     @Nested
-    class createClass {
+    class CreateClass {
         @Test
         void 名前と生年月日を紐づけて新規登録すること() {
             User user = new User(null, "tom", "1990-01-01");
@@ -90,7 +90,7 @@ public class UserServiceTest {
     }
 
     @Nested
-    class deleteClass {
+    class DeleteClass {
 
         @Test
         void 指定したIDに紐づいて登録されたユーザーを削除すること() {
