@@ -90,5 +90,20 @@ class UserMapperTest {
         }
 
     }
+
+    @Nested
+    class UpdateClass {
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @ExpectedDataSet(value = "datasets/updateUsers.yml")
+        @Transactional
+        void 指定したIDに紐づいたユーザーを変更すること() {
+            User user = new User(1, "updateUser", "2000-01-01");
+            userMapper.update(user);
+
+        }
+
+    }
 }
 

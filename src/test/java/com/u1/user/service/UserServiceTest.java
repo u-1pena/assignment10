@@ -106,5 +106,19 @@ public class UserServiceTest {
 
     }
 
+    @Nested
+    class UpdateClass {
+        @Test
+        void 指定したIDに紐づいて登録されたユーザーの内容を変更すること() {
+            doReturn(Optional.of(new User(1, "updateUser", "2000-01-01"))).when(userMapper).findById(1);
+            User actual = userService.update(1, "updateUser", "2000-01-01");
+            User user = new User(1, "updateUser", "2000-01-01");
+            verify(userMapper).findById(1);
+            verify(userMapper).update(user);
+        }
+
+        //IDが存在しない場合の例外処理はreadClassの「存在しないIDを指定したとき例外処理を返すこと」と同じなので割愛
+    }
+
 }
 
