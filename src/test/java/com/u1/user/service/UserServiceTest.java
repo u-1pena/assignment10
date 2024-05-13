@@ -102,10 +102,12 @@ public class UserServiceTest {
         }
 
         @Test
-        void 存在しないIDで削除しようとしたとき例外処理を返すこと() throws UserNotFoundException {
+        void 存在しないIDで削除しようとしたとき例外処理を返しDBが削除されないこと() throws UserNotFoundException {
             doReturn(Optional.empty()).when(userMapper).findById(0);
             assertThrows(UserNotFoundException.class, () -> {
-                userService.findUser(0);
+                userService.delete(0);
+                verify(userMapper).findById(0);
+                verify(userMapper, never()).delete(0);
             });
 
         }
@@ -125,10 +127,12 @@ public class UserServiceTest {
         }
 
         @Test
-        void 存在しないIDで更新しようとしたとき例外処理を返すこと() throws UserNotFoundException {
+        void 存在しないIDで更新しようとしたとき例外処理を返しDBの更新が行われないこと() throws UserNotFoundException {
             doReturn(Optional.empty()).when(userMapper).findById(0);
             assertThrows(UserNotFoundException.class, () -> {
-                userService.findUser(0);
+                userService.update(0, "yuichi", "1984-07-03");
+                verify(userMapper).findById(0);
+                verify(userMapper, never()).update(any());
             });
 
         }

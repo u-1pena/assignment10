@@ -12,10 +12,19 @@ public class User {
         this.name = name;
         this.birthday = birthday;
     }
+    /*コンストラクタ
+     * DBに登録する前にインスタンス化するときに使う
+     * IDは自動採番されるのでnullでよい
+     *
+     * @param name 名前
+     * @param birthday 誕生日
+     * */
 
 
-    public static User createUser(String name, String birthday) {
-        return new User(null, name, birthday);
+    public User(String name, String birthday) {
+        this.id = null;
+        this.name = name;
+        this.birthday = birthday;
     }
 
     public int getId() {

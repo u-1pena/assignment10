@@ -73,8 +73,8 @@ class UserMapperTest {
         @ExpectedDataSet(value = "datasets/insertUsers.yml", ignoreCols = "id")
         @Transactional
         void 名前と生年月日を紐づけしてIDで登録すること() {
-            User newUser = User.createUser("Tom", "1990-01-01");
-            userMapper.insert(newUser);
+            User user = new User("Tom", "1990-01-01");
+            userMapper.insert(user);
         }
     }
 
