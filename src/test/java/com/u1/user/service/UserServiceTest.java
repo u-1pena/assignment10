@@ -101,9 +101,41 @@ public class UserServiceTest {
             verify(userMapper).delete(1);
         }
 
-        //IDが存在しない場合の例外処理はreadClassの「存在しないIDを指定したとき例外処理を返すこと」と同じなので割愛
+        @Test
+        void 存在しないIDで削除しようとしたとき例外処理を返しDBが削除されないこと() throws UserNotFoundException {
+            doReturn(Optional.empty()).when(userMapper).findById(0);
+            assertThrows(UserNotFoundException.class, () -> {
+                userService.delete(0);
+                verify(userMapper).findById(0);
+                verify(userMapper, never()).delete(0);
+            });
+
+        }
 
 
+    }
+
+    @Nested
+    class UpdateClass {
+        @Test
+        void 指定したIDに紐づいて登録されたユーザーの内容を変更すること() {
+            doReturn(Optional.of(new User(1, "updateUser", "2000-01-01"))).when(userMapper).findById(1);
+            userService.update(1, "updateUser", "2000-01-01");
+            User user = new User(1, "updateUser", "2000-01-01");
+            verify(userMapper).findById(1);
+            verify(userMapper).update(user);
+        }
+
+        @Test
+        void 存在しないIDで更新しようとしたとき例外処理を返しDBの更新が行われないこと() throws UserNotFoundException {
+            doReturn(Optional.empty()).when(userMapper).findById(0);
+            assertThrows(UserNotFoundException.class, () -> {
+                userService.update(0, "yuichi", "1984-07-03");
+                verify(userMapper).findById(0);
+                verify(userMapper, never()).update(any());
+            });
+
+        }
     }
 
 }

@@ -217,5 +217,48 @@ public class UserIntegrationTest {
                     .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/users/0"));
 
         }
+
+    }
+
+    @Nested
+    class UpdateClass {
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @ExpectedDataSet(value = "datasets/updateUsers.yml")
+        @Transactional
+        void 指定したIDに紐づいたユーザーを更新すること() throws Exception {
+            String requestBody = """
+                    {
+                               "name": "updateUser",
+                               "birthday": "2000/01/01"
+                    }
+                    """;
+            mockMvc.perform(MockMvcRequestBuilders.patch("/users/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestBody))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "message": "user updated!"
+                            }
+                            """));
+
+        }
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @Transactional
+        void 存在しないIDでユーザーの更新をしようとすると404エラーを返すこと() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/users/100"))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("404"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("user not found with id: " + 100))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/users/100"));
+
+        }
+
     }
 }

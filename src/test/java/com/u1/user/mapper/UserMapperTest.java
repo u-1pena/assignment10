@@ -73,8 +73,8 @@ class UserMapperTest {
         @ExpectedDataSet(value = "datasets/insertUsers.yml", ignoreCols = "id")
         @Transactional
         void 名前と生年月日を紐づけしてIDで登録すること() {
-            User newUser = User.createUser("Tom", "1990-01-01");
-            userMapper.insert(newUser);
+            User user = new User("Tom", "1990-01-01");
+            userMapper.insert(user);
         }
     }
 
@@ -87,6 +87,21 @@ class UserMapperTest {
         @Transactional
         void 指定したIDに紐づいた存在するユーザーを削除すること() {
             userMapper.delete(1);
+        }
+
+    }
+
+    @Nested
+    class UpdateClass {
+
+        @Test
+        @DataSet(value = "datasets/users.yml")
+        @ExpectedDataSet(value = "datasets/updateUsers.yml")
+        @Transactional
+        void 指定したIDに紐づいたユーザーを変更すること() {
+            User user = new User(1, "updateUser", "2000-01-01");
+            userMapper.update(user);
+
         }
 
     }
