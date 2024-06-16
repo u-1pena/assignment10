@@ -14,42 +14,42 @@ tags:
     description: "登録されているユーザーの情報IDで検索し更新する"
   - name: "ユーザー情報を削除する"
     description: "ユーザー情報をIDで検索し削除する"
-    
-    
+
+
 paths:
   /users:
     get:
-      tags: 
+      tags:
         - ユーザー情報を取得する
       summary: 登録されているユーザーを取得する。
       description: クエリパラメータで入力された条件に合致するユーザーを取得する。条件を入力しない場合は全件ユーザー情報を取得する
       parameters:
         - name: name
           in: query
-          description: 名前に入力した文字が含まれる人の送付状況が検索される
+          description: 名前に入力した文字が含まれる人が検索される
           required: false
           schema:
             type: string
             example: y
-        
+
       responses:
         '200':
           description: ok
           content:
             application/json:
               schema:
-                 type: array
-                 items:
-                   type: object
-                 example:
+                type: array
+                items:
+                  type: object
+                example:
                   - id: 1
                     name: "yuichi"
                     birthday: "1984-07-03"
                   - id: 2
                     name: "kanayo"
                     birthday: "1993-12-31"
-                    
-                    
+
+
     post:
       tags:
         - ユーザーを新規に登録する
@@ -100,16 +100,16 @@ paths:
                         filed:
                           type: string
                 example:
-                    status: "BAD_REQUEST"
-                    message: "validation error"
-                    errors:
+                  status: "BAD_REQUEST"
+                  message: "validation error"
+                  errors:
                     - field: "birthday"
                       message: "YYYY/MM/ddで入力して下さい"
-                  
+
   /users/{id}:
     get:
-      tags: 
-      - ユーザー情報を取得する
+      tags:
+        - ユーザー情報を取得する
       summary: 指定したIDでユーザー情報を取得する。
       description: 指定したPathをIDとして取得しそのIDに紐づいたユーザーを取得する。
       parameters:
@@ -127,7 +127,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-  
+
         '404':
           description: Not Found
           content:
@@ -175,18 +175,18 @@ paths:
                   message:
                     type: string
                     example: user updated!
-                    
+
         '404':
           description: Not Found
           content:
             application/json:
               schema:
-               $ref: '#/components/schemas/ValidationErrorResponse'
-           
+                $ref: '#/components/schemas/ValidationErrorResponse'
+
     
     delete:
-      tags: 
-      - ユーザー情報を削除する
+      tags:
+        - ユーザー情報を削除する
       summary: 指定したIDでユーザー情報を取得する。
       description: 指定したPathをIDとして取得しそのIDに紐づいたユーザーを削除する。
       parameters:
@@ -213,25 +213,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserNotFoundException'         
-                
+                $ref: '#/components/schemas/UserNotFoundException'
+
 components:
   schemas:
     User:
       description: "Entityクラス"
       type: object
       properties:
-          id:
-            type: integer
-            example: 1
-          name:
-            type: string
-            example: "yuichi"
-          birthday:
-            type: string
-            example: "1984-07-03"
-            
-            
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "yuichi"
+        birthday:
+          type: string
+          example: "1984-07-03"
+
+
     UserNotFoundException:
       description: "ID検索時、ユーザーが見つからなかった場合のレスポンス"
       type: object
@@ -252,8 +252,8 @@ components:
           type: string
           format: date-time
           example: "2024-06-02T23:25:46.314631+09:00[Asia/Tokyo]"
-     
-          
+
+
     ValidationErrorResponse:
       description: "登録時、更新時にリクエストボディに指定されたフォーマット以外でリクエストした時、Validationエラーを変えすレスポンス"
       type: object
@@ -268,11 +268,11 @@ components:
             type: object
             properties:
               filed:
-               type: string
-              
+                type: string
+
       example:
         status: "BAD_REQUEST"
         message: "validation error"
         errors:
-        - field: "birthday"
-          message: "YYYY/MM/ddで入力して下さい"
+          - field: "birthday"
+            message: "YYYY/MM/ddで入力して下さい"
