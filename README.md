@@ -38,9 +38,9 @@ AWSについては学習中になりますので実装次第更新します。
 
 <br>
 
-* Java
+* Java 17
 * MySQL
-* Docker
+* Docker 3.8
 
 <br>
 
@@ -51,24 +51,28 @@ AWSについては学習中になりますので実装次第更新します。
 ```text
  git clone https://github.com/u-1pena/assignment10.git
 ```
+
 2.Dockerを起動
+
 ```text
 docker compose up -d
 ```
+
 3.SpringBootを起動
+
 ```text
 ./gradlew bootRun
 ```
+
 ブラウザにてcurlコマンド等でリクエスト
 
 [localhost:8080](http://localhost:8080/users)
 
 # アプリケーション概略図
 
-![aplication map](img/aplicationmap.jpeg "aplicationM")
+![aplication map](img/applicationMap.png "aplicationM")
 
-# API一覧 
-
+# API一覧
 
 |   API    | Method |     path      |
 |:--------:|:------:|:-------------:|
@@ -81,35 +85,32 @@ docker compose up -d
 
 <br>
 
-
-
 # DBについて ![Static Badge](https://img.shields.io/badge/MySQL-%234479A1?style=plastic&logo=MySQL&logoColor=white)
 
 ### テーブル名：users
 
-|   column | data type |  NotNull  |　  key      |  description  |
-|:--------:|:-------:|:---------:|:----------:|:-------------:|
-| id       |  int    |  NOT NULL  | primaryKey | id 自動採番　　 |
-| name     |  VARCHER(100) |  NOT NULL  |   |   名前  |
-| birthday | VARCHER(100) | NOT NULL    |   |　誕生日（YYYY-MM-DD）表示 |
+|  column  |  data type   | NotNull  |   　  key   |    description     |
+|:--------:|:------------:|:--------:|:----------:|:------------------:|
+|    id    |     int      | NOT NULL | primaryKey |     id 自動採番　　      |
+|   name   | VARCHER(100) | NOT NULL |            |         名前         |
+| birthday | VARCHER(100) | NOT NULL |            | 　誕生日（YYYY-MM-DD）表示 |
 
 <br>
 <br>
 
 # Dockerについて![Static Badge](https://img.shields.io/badge/Docker-%232496ED?style=plastic&logo=Docker&logoColor=white)
 
-|        |     |
-|:-------|----:|
-| version | 3.8 |  
-|container name | docker-mysql-hands-on | 
-| platform | linux/x86_64 | 
-| environment |  
-| MYSQL_ROOT_PASSWORD | password |
-| MYSQL_DATABASE | user_list | 
-| MYSQL_USER | user | 
-| MYSQL_PASSWORD | password |  
-| port | 3307:3306 |
-
+|                     |                       |
+|:--------------------|----------------------:|
+| version             |                   3.8 |  
+| container name      | docker-mysql-hands-on | 
+| platform            |          linux/x86_64 | 
+| environment         |
+| MYSQL_ROOT_PASSWORD |              password |
+| MYSQL_DATABASE      |             user_list | 
+| MYSQL_USER          |                  user | 
+| MYSQL_PASSWORD      |              password |  
+| port                |             3307:3306 |
 
 # 仕様書とシーケンス図
 
@@ -130,7 +131,9 @@ __[SwaggerによるAPI仕様書](https://u-1pena.github.io/assignment10/)__
 ![Sequence Diagram](img/SequenceDiagram3.png "sequenceD")
 
 # 自動テスト
+
 以下の自動テストを実装
+
 * UserServiceの単体テスト
 * UserMapperのDBテスト
 * UserIntegrationテストの実装（結合テスト）
