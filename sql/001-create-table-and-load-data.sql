@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id int unsigned AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
-  birthday VARCHAR(100) NOT NULL,
+  birthday DATE NOT NULL,
   PRIMARY KEY(id)
 );
 

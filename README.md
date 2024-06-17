@@ -93,7 +93,7 @@ docker compose up -d
 |:--------:|:------------:|:--------:|:----------:|:------------------:|
 |    id    |     int      | NOT NULL | primaryKey |     id 自動採番　　      |
 |   name   | VARCHER(100) | NOT NULL |            |         名前         |
-| birthday | VARCHER(100) | NOT NULL |            | 　誕生日（YYYY-MM-DD）表示 |
+| birthday |     DATE     | NOT NULL |            | 　誕生日（YYYY-MM-DD）表示 |
 
 <br>
 <br>
