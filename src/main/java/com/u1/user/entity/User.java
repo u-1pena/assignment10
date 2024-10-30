@@ -1,74 +1,42 @@
 package com.u1.user.entity;
 
-import java.util.Objects;
+import java.time.LocalDate;
+import lombok.Data;
 
+
+@Data
 public class User {
 
   private Integer id;
-  private String name;
-  private String birthday;
+  private String firstName;
+  private String lastName;
+  private LocalDate birthday;
+  private Gender gender;
+  private String phoneNumber;
+  private String email;
+  private String password;
 
-  public User(Integer id, String name, String birthday) {
+  public User(Integer id, String firstName, String lastName, LocalDate birthday, Gender gender,
+      String phoneNumber, String email, String password) {
     this.id = id;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.birthday = birthday;
+    this.gender = gender;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+    this.password = password;
   }
-  /*コンストラクタ
-   * DBに登録する前にインスタンス化するときに使う
-   * IDは自動採番されるのでnullでよい
-   *
-   * @param name 名前
-   * @param birthday 誕生日
-   * */
 
-
-  public User(String name, String birthday) {
-    this.id = null;
-    this.name = name;
+  public User(String firstName, String lastName, LocalDate birthday, Gender gender,
+      String phoneNumber, String email, String password) {
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.birthday = birthday;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getBirthday() {
-    return birthday;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setBirthday(String birthday) {
-    this.birthday = birthday;
-  }
-
-  @Override //別のインスタンスだったとしても同じものと扱うメソットequal
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    User user = (User) o;
-    return Objects.equals(id, user.id) &&
-        Objects.equals(name, user.name) &&
-        Objects.equals(birthday, user.birthday);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, birthday);
+    this.gender = gender;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+    this.password = password;
   }
 
 
