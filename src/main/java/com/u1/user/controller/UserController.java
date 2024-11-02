@@ -47,14 +47,11 @@ public class UserController {
   public ResponseEntity<UserResponse> insert(
       @RequestBody @Validated UserCreateRequest userCreateRequest,
       UriComponentsBuilder uriBuilder) {
-    userService.checkIfMobileNumberOrEmailExists(userCreateRequest.getMobilePhone(),
-        userCreateRequest.getEmail());
     User user = userService.insert(userCreateRequest.convertToEntity());
     URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
     UserResponse body = new UserResponse("user created");
     return ResponseEntity.created(location).body(body);
   }
-
 
   @DeleteMapping("/users/{id}")//ユーザーを削除する処理
   public ResponseEntity<UserResponse> delete(@PathVariable("id") int id) {
