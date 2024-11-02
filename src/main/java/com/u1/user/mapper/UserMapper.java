@@ -34,8 +34,13 @@ public interface UserMapper {
   @Select("SELECT * FROM users WHERE id = #{id}")
   Optional<User> findById(int id);
 
+  @Select("SELECT * FROM users WHERE mobile_phone = #{mobileNumber} OR email = #{email}")
+  List<User> checkIfMobileNumberOrEmailExists(String mobileNumber, String email);
+
   /*ユーザー登録する処理*/
-  @Insert("INSERT INTO users (first_name, last_name, birthday, gender, mobile_phone, email, password) VALUES (#{firstName}, #{lastName}, #{birthday}, #{gender}, #{phoneNumber}, #{email}, #{password})")
+  @Insert(
+      "INSERT INTO users (first_name, last_name, birthday, gender, mobile_phone, email, password) "
+          + "VALUES (#{firstName}, #{lastName}, #{birthday}, #{gender}, #{phoneNumber}, #{email}, #{password})")
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void insert(User user);
 

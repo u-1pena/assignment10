@@ -6,8 +6,8 @@ CREATE TABLE users (
   last_name VARCHAR(100) NOT NULL,
   birthday DATE NOT NULL,
   gender ENUM('male','female') NOT NULL,
-  mobile_phone VARCHAR(100) NOT NULL,UNIQUE,
-  email VARCHAR(100) NOT NULL,UNIQUE,
+  mobile_phone VARCHAR(100) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
   PRIMARY KEY(id)
 );

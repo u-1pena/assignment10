@@ -1,11 +1,37 @@
 users:
-  - id: 1
-    name: "yuichi"
-    birthday: "1984-07-03"
-  - id: 2
-    name: "kana"
-    birthday: "1993-12-31"
-  - id: 3
-    name: "Tom"
-    birthday: "1990-01-01"
 
+  - id: 1
+    firstName: "yuichi"
+    lastName: "shima",
+    birthday: "1984-07-03",
+    gender: "male",
+    phoneNumber: "090-1234-5678",
+    email: "shimaichi5973@gmail.com",
+    password: "RaiseTech@2023"
+
+  - id: 2
+    firstName: "kana"
+    lastName: "nishiyama"
+    birthday: "1993-12-31"
+    gender: "female"
+    phoneNumber: "080-1234-5678"
+    email: "kana1234@yahoo.com"
+    password: "MarinTokyo@2023"
+
+  - id: 3
+    firstName: "taro"
+    lastName: "yamada"
+    birthday: "1990-01-01"
+    gender: "male"
+    phoneNumber: "090-1234-5679"
+    email: "taro0101@gmail.com"
+    password: "RaiseTech@2024"
+
+  - id: 4
+    firstName: "newUserFirstName"
+    lastName: "newUserLastName"
+    birthday: "2000-01-01"
+    gender: "female"
+    phoneNumber: "090-1234-5555"
+    email: "newUser@test.co.jp"
+    password: "NewUser@0101"
