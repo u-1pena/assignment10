@@ -1,9 +1,11 @@
 package com.u1.user.service;
 
+import com.u1.user.controller.response.UserExistsException;
 import com.u1.user.controller.response.UserNotFoundException;
 import com.u1.user.entity.User;
 import com.u1.user.mapper.UserMapper;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +14,7 @@ public class UserService {
   // dependency injection constructor injection field injection final:授業メモ
   private final UserMapper userMapper;
 
+  @Autowired
   public UserService(UserMapper userMapper) {
     this.userMapper = userMapper;
   }
@@ -36,6 +39,18 @@ public class UserService {
     return this.userMapper.findByName(name)
         .orElseThrow(() -> new UserNotFoundException("user not found containing name: " + name));
   }
+
+
+  public void checkIfMobileNumberOrEmailExists(String mobileNumber, String email) {
+    this.userMapper.checkIfMobileNumberOrEmailExists(mobileNumber, email);
+    if (!userMapper.checkIfMobileNumberOrEmailExists(mobileNumber, email).isEmpty()) {
+      throw new UserExistsException("user with mobile number or email already exists");
+    }
+
+  }
+
+
+
   /*-------------------ユーザーを登録する仕様--------------------------*/
 
   /*public 外から使うControllerから使うから　User 戻り値の型　何故Userか・・←レスポンスする時にIDが必要だから
